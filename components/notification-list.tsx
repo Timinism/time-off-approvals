@@ -44,7 +44,7 @@ export function NotificationList({
             <span
               className={
                 item.status === "failed"
-                  ? "rounded-full bg-rose-100 px-2 py-0.5 text-xs font-medium text-rose-950"
+                  ? "rounded-full bg-rose-100 px-2 py-0.5 text-xs font-medium text-rose-950 dark:bg-rose-950/50 dark:text-rose-100"
                   : "rounded-full bg-sand px-2 py-0.5 text-xs font-medium text-foreground"
               }
             >

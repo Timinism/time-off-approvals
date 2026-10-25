@@ -56,9 +56,9 @@ export default async function HomePage() {
           </Link>
         </div>
       ) : (
-        <section className="rounded-2xl border border-rose-200 bg-rose-50 p-5">
-          <h2 className="text-2xl text-rose-950">No approver yet</h2>
-          <p className="mt-2 max-w-2xl text-sm text-rose-900">
+        <section className="rounded-2xl border border-rose-200 bg-rose-50 p-5 dark:border-rose-900 dark:bg-rose-950/40">
+          <h2 className="text-2xl text-rose-950 dark:text-rose-100">No approver yet</h2>
+          <p className="mt-2 max-w-2xl text-sm text-rose-900 dark:text-rose-200">
             Time Off will not let you file a request until Microsoft Entra has a manager on your
             profile. Ask IT to set that field, then sign in again.
           </p>

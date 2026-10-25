@@ -114,7 +114,9 @@ export function RequestForm({
       <div
         className={cn(
           "rounded-xl px-4 py-3 text-sm",
-          overlap || (parsed && !parsed.ok) ? "bg-rose-50 text-rose-950" : "bg-sand text-foreground",
+          overlap || (parsed && !parsed.ok)
+            ? "bg-rose-50 text-rose-950 dark:bg-rose-950/40 dark:text-rose-100"
+            : "bg-sand text-foreground",
         )}
         aria-live="polite"
       >
@@ -151,7 +153,7 @@ export function RequestForm({
             {managerName} is your manager in Microsoft Entra.
           </p>
         ) : (
-          <p className="text-sm text-rose-900">
+          <p className="text-sm text-rose-900 dark:text-rose-200">
             No manager is set on your Entra profile, so this request has nowhere to go. Ask IT to set
             your manager, then sign in again.
           </p>
@@ -159,7 +161,7 @@ export function RequestForm({
       </div>
 
       {state?.error ? (
-        <p role="alert" className="rounded-xl bg-rose-50 px-4 py-3 text-sm text-rose-950">
+        <p role="alert" className="rounded-xl bg-rose-50 px-4 py-3 text-sm text-rose-950 dark:bg-rose-950/40 dark:text-rose-100">
           {state.error}
         </p>
       ) : null}

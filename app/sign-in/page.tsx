@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { CalendarDays } from "lucide-react";
 import { enterDemo, microsoftSignIn } from "@/app/actions";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { entraConfigured } from "@/lib/auth";
 import { demoAllowed, entraSettings } from "@/lib/config";
@@ -56,6 +57,9 @@ export default async function SignInPage({
 
       <section className="px-6 py-10 sm:px-10 lg:px-12 lg:py-16">
         <div className="mx-auto flex max-w-md flex-col gap-8">
+          <div className="flex justify-end">
+            <ThemeToggle />
+          </div>
           <div>
             <h2 className="text-3xl">Sign in</h2>
             <p className="mt-2 text-sm text-muted-foreground">
@@ -65,7 +69,7 @@ export default async function SignInPage({
           </div>
 
           {params.error ? (
-            <p role="alert" className="rounded-xl bg-rose-50 px-4 py-3 text-sm text-rose-950">
+            <p role="alert" className="rounded-xl bg-rose-50 px-4 py-3 text-sm text-rose-950 dark:bg-rose-950/40 dark:text-rose-100">
               {params.error}
             </p>
           ) : null}
@@ -73,7 +77,7 @@ export default async function SignInPage({
           {entraConfigured ? (
             <form action={microsoftSignIn}>
               <input type="hidden" name="callbackUrl" value={callbackUrl} />
-              <Button type="submit" className="h-11 w-full bg-white text-foreground ring-1 ring-border hover:bg-sand">
+              <Button type="submit" className="h-11 w-full bg-white text-stone-900 ring-1 ring-border hover:bg-sand">
                 <MicrosoftMark />
                 Sign in with Microsoft
               </Button>

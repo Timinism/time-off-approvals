@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { entraSettings, itopsEmail } from "@/lib/config";
 
 export const metadata = { title: "Connect Microsoft Entra" };
@@ -13,9 +14,12 @@ export default function SetupPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6">
-      <Link href="/sign-in" className="text-sm text-primary">
-        Back to sign in
-      </Link>
+      <div className="flex items-center justify-between gap-3">
+        <Link href="/sign-in" className="text-sm text-primary">
+          Back to sign in
+        </Link>
+        <ThemeToggle />
+      </div>
       <p className="mt-8 text-xs font-semibold tracking-[0.16em] text-primary uppercase">Setup</p>
       <h1 className="mt-2 text-4xl tracking-tight">Connect Microsoft Entra</h1>
       <p className="mt-3 text-sm text-muted-foreground">

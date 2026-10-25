@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Figtree, Fraunces } from "next/font/google";
+import { themeBootScript } from "@/lib/theme";
 import "./globals.css";
 
 const figtree = Figtree({
@@ -34,7 +35,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${figtree.variable} ${fraunces.variable}`}>
+    <html lang="en" className={`${figtree.variable} ${fraunces.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+      </head>
       <body className="antialiased">{children}</body>
     </html>
   );

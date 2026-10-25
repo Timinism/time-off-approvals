@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CalendarDays } from "lucide-react";
 import { enterDemo, signOutAction } from "@/app/actions";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { NavLinks } from "@/components/nav-links";
 import { DEMO_PEOPLE } from "@/lib/demo-people";
@@ -48,6 +49,7 @@ export function Shell({ user, children }: { user: AppUser; children: React.React
               >
                 {initials(user.name)}
               </span>
+              <ThemeToggle className="px-2 sm:px-2.5" />
               <form action={signOutAction}>
                 <Button type="submit" variant="outline" size="sm">
                   Sign out
@@ -59,9 +61,9 @@ export function Shell({ user, children }: { user: AppUser; children: React.React
         </div>
       </header>
       {user.source === "demo" ? (
-        <div className="border-b border-amber-200 bg-amber-50">
+        <div className="border-b border-amber-200 bg-amber-50 dark:border-amber-800 dark:bg-amber-950/40">
           <div className="mx-auto flex max-w-5xl flex-col gap-3 px-4 py-3 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
-            <p className="text-sm text-amber-950">
+            <p className="text-sm text-amber-950 dark:text-amber-100">
               <strong>Sample directory.</strong> Mail and the IT Ops invite are saved on the request
               so you can read them. Nothing is sent through Microsoft until Entra ID is connected.
             </p>
@@ -73,7 +75,7 @@ export function Shell({ user, children }: { user: AppUser; children: React.React
                 id="persona"
                 name="userId"
                 defaultValue={user.id}
-                className="h-9 rounded-lg border border-amber-300 bg-white px-2 text-sm text-amber-950"
+                className="h-9 rounded-lg border border-amber-300 bg-white px-2 text-sm text-amber-950 dark:border-amber-700 dark:bg-amber-950 dark:text-amber-50"
               >
                 {DEMO_PEOPLE.map((person) => (
                   <option key={person.id} value={person.id}>
@@ -81,7 +83,7 @@ export function Shell({ user, children }: { user: AppUser; children: React.React
                   </option>
                 ))}
               </select>
-              <Button type="submit" size="sm" variant="outline" className="border-amber-300 bg-white">
+              <Button type="submit" size="sm" variant="outline" className="border-amber-300 bg-white dark:border-amber-700 dark:bg-transparent dark:text-amber-50">
                 View as
               </Button>
             </form>
@@ -89,8 +91,8 @@ export function Shell({ user, children }: { user: AppUser; children: React.React
         </div>
       ) : null}
       {user.directoryError ? (
-        <div className="border-b border-rose-200 bg-rose-50">
-          <p className="mx-auto max-w-5xl px-4 py-3 text-sm text-rose-950 sm:px-6">{user.directoryError}</p>
+        <div className="border-b border-rose-200 bg-rose-50 dark:border-rose-900 dark:bg-rose-950/40">
+          <p className="mx-auto max-w-5xl px-4 py-3 text-sm text-rose-950 sm:px-6 dark:text-rose-100">{user.directoryError}</p>
         </div>
       ) : null}
       <main id="main" className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-6">

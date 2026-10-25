@@ -45,7 +45,7 @@ export default async function RequestDetailPage({
         </div>
 
         {query.error ? (
-          <p role="alert" className="rounded-xl bg-rose-50 px-4 py-3 text-sm text-rose-950">
+          <p role="alert" className="rounded-xl bg-rose-50 px-4 py-3 text-sm text-rose-950 dark:bg-rose-950/40 dark:text-rose-100">
             {query.error}
           </p>
         ) : null}
