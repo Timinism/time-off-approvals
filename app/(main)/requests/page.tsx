@@ -1,4 +1,5 @@
 import { EmptyState } from "@/components/empty-state";
+import { PageHeader } from "@/components/page-header";
 import { RequestFilters } from "@/components/filters";
 import { RequestCard } from "@/components/request-card";
 import { listVisibleRequests } from "@/lib/repo";
@@ -23,15 +24,14 @@ export default async function MyRequestsPage({
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <p className="text-xs font-semibold tracking-[0.16em] text-primary uppercase">History</p>
-          <h1 className="mt-2 text-4xl tracking-tight">Your requests</h1>
-        </div>
-        <Link href="/request" className="text-sm font-medium text-primary">
-          New request
-        </Link>
-      </div>
+      <PageHeader
+        title="Your requests"
+        action={
+          <Link href="/request" className="text-sm font-medium text-primary">
+            New request
+          </Link>
+        }
+      />
       <RequestFilters base="/requests" status={filters.status} type={filters.type} />
       {mine.length === 0 ? (
         <EmptyState

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { approveNow } from "@/app/actions";
+import { PageHeader } from "@/components/page-header";
 import { EmptyState } from "@/components/empty-state";
 import { RequestCard } from "@/components/request-card";
 import { Button } from "@/components/ui/button";
@@ -26,14 +27,10 @@ export default async function ApprovalsPage({
 
   return (
     <div className="space-y-8">
-      <div>
-        <p className="text-xs font-semibold tracking-[0.16em] text-primary uppercase">Queue</p>
-        <h1 className="mt-2 text-4xl tracking-tight">Approvals</h1>
-        <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
-          These are waiting on you because you are the manager in Microsoft Entra. Approving emails
-          the person back and sends {itopsEmail()} an all-day calendar invite.
-        </p>
-      </div>
+      <PageHeader title="Approvals">
+        These are waiting on you because you are the manager in Microsoft Entra. Approving emails
+        the person back and sends {itopsEmail()} an all-day calendar invite.
+      </PageHeader>
       {query.error ? (
         <p role="alert" className="rounded-xl bg-rose-50 px-4 py-3 text-sm text-rose-950 dark:bg-rose-950/40 dark:text-rose-100">
           {query.error}
@@ -49,7 +46,7 @@ export default async function ApprovalsPage({
           {waiting.map((request) => (
             <li
               key={request.id}
-              className="rounded-2xl border border-border bg-card p-4 shadow-sm sm:p-5"
+              className="rounded-xl border border-border/80 bg-card p-4 shadow-sm sm:p-5"
             >
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
@@ -77,7 +74,7 @@ export default async function ApprovalsPage({
       )}
 
       <section className="space-y-3">
-        <h2 className="text-2xl">Recently decided</h2>
+        <h2 className="text-lg font-semibold">Recently decided</h2>
         {recent.length === 0 ? (
           <p className="text-sm text-muted-foreground">Decisions you make will stay in this list.</p>
         ) : (

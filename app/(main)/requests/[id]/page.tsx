@@ -35,8 +35,7 @@ export default async function RequestDetailPage({
     <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
       <div className="order-2 space-y-6 lg:order-1">
         <div>
-          <p className="text-xs font-semibold tracking-[0.16em] text-primary uppercase">Request</p>
-          <h1 className="mt-2 text-4xl tracking-tight">{typeLong(request.type)}</h1>
+          <h1 className="text-3xl font-semibold tracking-tight">{typeLong(request.type)}</h1>
           <p className="mt-3 text-base">{spanSummary(request.startDate, request.endDate)}</p>
           <div className="mt-4 flex flex-wrap gap-2">
             <StatusBadge status={request.status} />
@@ -50,8 +49,8 @@ export default async function RequestDetailPage({
           </p>
         ) : null}
 
-        <section className="rounded-2xl border border-border bg-card p-5">
-          <h2 className="text-xl">Note</h2>
+        <section className="rounded-xl border border-border/80 bg-card p-5 shadow-sm">
+          <h2 className="text-lg font-semibold">Note</h2>
           <p className="mt-2 text-sm whitespace-pre-wrap">
             {request.notes || "No note was added."}
           </p>
@@ -66,7 +65,7 @@ export default async function RequestDetailPage({
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-2xl">What went out</h2>
+          <h2 className="text-lg font-semibold">What went out</h2>
           <NotificationList
             notifications={notifications}
             timeZone={zone}
@@ -77,8 +76,8 @@ export default async function RequestDetailPage({
       </div>
 
       <aside className="order-1 space-y-4 lg:order-2">
-        <section className="rounded-2xl border border-border bg-card p-5">
-          <h2 className="text-xl">People</h2>
+        <section className="rounded-xl border border-border/80 bg-card p-5 shadow-sm">
+          <h2 className="text-lg font-semibold">People</h2>
           <dl className="mt-3 space-y-3 text-sm">
             <div>
               <dt className="text-muted-foreground">Requested by</dt>
@@ -107,8 +106,8 @@ export default async function RequestDetailPage({
         </section>
 
         {canDecide ? (
-          <section className="rounded-2xl border border-primary/30 bg-card p-5">
-            <h2 className="text-xl">Your decision</h2>
+          <section className="rounded-xl border border-primary/30 bg-card p-5 shadow-sm">
+            <h2 className="text-lg font-semibold">Your decision</h2>
             <div className="mt-4">
               <DecisionPanel
                 requestId={request.id}
@@ -120,8 +119,8 @@ export default async function RequestDetailPage({
         ) : null}
 
         {canCancel ? (
-          <section className="rounded-2xl border border-border bg-card p-5">
-            <h2 className="text-xl">Changed your mind?</h2>
+          <section className="rounded-xl border border-border/80 bg-card p-5 shadow-sm">
+            <h2 className="text-lg font-semibold">Changed your mind?</h2>
             <div className="mt-4">
               <CancelRequest requestId={request.id} />
             </div>

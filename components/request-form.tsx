@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useActionState } from "react";
+import { HeartPulse, TreePalm } from "lucide-react";
 import { submitRequestAction, type ActionState } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -56,8 +57,8 @@ export function RequestForm({
             <label
               key={option}
               className={cn(
-                "cursor-pointer rounded-2xl border bg-card p-4 shadow-sm transition",
-                type === option ? "border-primary ring-3 ring-primary/20" : "border-border hover:border-primary/30",
+                "flex cursor-pointer items-start gap-3 rounded-xl border bg-card p-4 shadow-sm transition",
+                type === option ? "border-primary ring-3 ring-primary/15" : "border-border/80 hover:border-primary/30",
               )}
             >
               <input
@@ -68,11 +69,21 @@ export function RequestForm({
                 onChange={() => setType(option)}
                 className="sr-only"
               />
+              <span
+                className={cn(
+                  "grid size-10 shrink-0 place-items-center rounded-lg",
+                  option === "pto" ? "bg-clay/12 text-clay" : "bg-lagoon/12 text-lagoon",
+                )}
+              >
+                {option === "pto" ? <TreePalm className="size-5" aria-hidden /> : <HeartPulse className="size-5" aria-hidden />}
+              </span>
+              <span className="min-w-0">
               <span className="block font-medium">{typeLong(option)}</span>
               <span className="mt-1 block text-sm text-muted-foreground">
                 {option === "pto"
                   ? "Vacation, personal days, and planned time away."
                   : "Illness, injury, or a medical appointment."}
+              </span>
               </span>
             </label>
           ))}
@@ -146,7 +157,7 @@ export function RequestForm({
         </p>
       </div>
 
-      <div className="rounded-2xl border border-border bg-card p-4">
+      <div className="rounded-xl border border-border/80 bg-card p-4 shadow-sm">
         {managerName && managerEmail ? (
           <p className="text-sm">
             <span className="font-medium">{managerName}</span> will get the request, because{" "}

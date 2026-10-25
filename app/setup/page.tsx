@@ -20,8 +20,7 @@ export default function SetupPage() {
         </Link>
         <ThemeToggle />
       </div>
-      <p className="mt-8 text-xs font-semibold tracking-[0.16em] text-primary uppercase">Setup</p>
-      <h1 className="mt-2 text-4xl tracking-tight">Connect Microsoft Entra</h1>
+      <h1 className="mt-8 text-3xl font-semibold tracking-tight">Connect Microsoft Entra</h1>
       <p className="mt-3 text-sm text-muted-foreground">
         Time Off signs people in with their Microsoft 365 account, reads the manager already stored
         in Entra, sends mail from the signed-in mailbox, and creates the IT Ops calendar invite from

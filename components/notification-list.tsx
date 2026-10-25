@@ -33,7 +33,7 @@ export function NotificationList({
   return (
     <ol className="space-y-3">
       {notifications.map((item) => (
-        <li key={item.id} className="rounded-2xl border border-border bg-card p-4">
+        <li key={item.id} className="rounded-xl border border-border/80 bg-card p-4 shadow-sm">
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
               <p className="text-sm font-medium">{kindLabel[item.kind]}</p>

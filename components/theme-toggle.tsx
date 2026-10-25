@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { THEME_STORAGE_KEY } from "@/lib/theme";
 import { cn } from "@/lib/utils";
 
-const THEME_COLOR = { light: "#0e4f4a", dark: "#142624" };
+const THEME_COLOR = { light: "#f6f2fb", dark: "#100e16" };
 
 function paintTheme(theme: "light" | "dark") {
   document.documentElement.classList.toggle("dark", theme === "dark");

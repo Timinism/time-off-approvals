@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HeartPulse, TreePalm } from "lucide-react";
+import { ArrowUpRight, HeartPulse, TreePalm } from "lucide-react";
 import { RequestCard } from "@/components/request-card";
 import { Button } from "@/components/ui/button";
 import { getAppUser } from "@/lib/session";
@@ -17,12 +17,11 @@ export default async function HomePage() {
   return (
     <div className="space-y-8">
       <div>
-        <p className="text-xs font-semibold tracking-[0.16em] text-primary uppercase">Time Off</p>
-        <h1 className="mt-2 text-4xl tracking-tight text-balance">
+        <h1 className="display-title max-w-xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
           {feed.hello}, {firstName(user.name)}
         </h1>
         {user.jobTitle ? <p className="mt-2 text-sm text-muted-foreground">{user.jobTitle}</p> : null}
-        <p className="mt-3 max-w-2xl text-base text-foreground/80">
+        <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">
           {managerIntro(
             user,
             supervisors.map((person) => person.name),
@@ -31,33 +30,63 @@ export default async function HomePage() {
       </div>
 
       {user.managerEmail ? (
-        <div className="grid gap-3 sm:grid-cols-2">
+        <>
+        <div className="flex flex-wrap gap-2">
           <Link
             href="/request?type=pto"
-            className="group rounded-2xl border border-border bg-card p-5 shadow-sm transition hover:border-clay/50"
+            className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-card/70 px-4 py-2 text-sm font-medium backdrop-blur transition hover:border-primary/50"
           >
-            <TreePalm className="size-5 text-clay" aria-hidden />
-            <h2 className="mt-3 text-2xl">Paid time off</h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Vacation, personal days, and planned time away.
-            </p>
-            <p className="mt-4 text-sm font-medium text-primary">Request PTO</p>
+            <TreePalm className="size-4 text-clay" aria-hidden />
+            Paid time off
           </Link>
           <Link
             href="/request?type=sick"
-            className="group rounded-2xl border border-border bg-card p-5 shadow-sm transition hover:border-lagoon/50"
+            className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-card/70 px-4 py-2 text-sm font-medium backdrop-blur transition hover:border-primary/50"
           >
-            <HeartPulse className="size-5 text-lagoon" aria-hidden />
-            <h2 className="mt-3 text-2xl">Sick time</h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Illness, injury, or a medical appointment. You can report it up to 14 days back.
-            </p>
-            <p className="mt-4 text-sm font-medium text-primary">Request sick time</p>
+            <HeartPulse className="size-4 text-lagoon" aria-hidden />
+            Sick time
           </Link>
         </div>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <Link
+            href="/request?type=pto"
+            className="glass group flex items-start gap-4 rounded-2xl border border-border/80 p-4 transition hover:-translate-y-0.5 hover:border-primary/40"
+          >
+            <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-clay/12 text-clay">
+              <TreePalm className="size-5" aria-hidden />
+            </span>
+            <span className="min-w-0">
+              <span className="flex items-center gap-2 text-base font-semibold">
+                Paid time off
+                <ArrowUpRight className="size-4 text-muted-foreground transition group-hover:text-primary" aria-hidden />
+              </span>
+              <span className="mt-1 block text-sm leading-5 text-muted-foreground">
+                Vacation, personal days, and planned time away.
+              </span>
+            </span>
+          </Link>
+          <Link
+            href="/request?type=sick"
+            className="glass group flex items-start gap-4 rounded-2xl border border-border/80 p-4 transition hover:-translate-y-0.5 hover:border-primary/40"
+          >
+            <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-lagoon/12 text-lagoon">
+              <HeartPulse className="size-5" aria-hidden />
+            </span>
+            <span className="min-w-0">
+              <span className="flex items-center gap-2 text-base font-semibold">
+                Sick time
+                <ArrowUpRight className="size-4 text-muted-foreground transition group-hover:text-primary" aria-hidden />
+              </span>
+              <span className="mt-1 block text-sm leading-5 text-muted-foreground">
+                Illness, injury, or a medical appointment. You can report it up to 14 days back.
+              </span>
+            </span>
+          </Link>
+        </div>
+        </>
       ) : (
-        <section className="rounded-2xl border border-rose-200 bg-rose-50 p-5 dark:border-rose-900 dark:bg-rose-950/40">
-          <h2 className="text-2xl text-rose-950 dark:text-rose-100">No approver yet</h2>
+        <section className="rounded-xl border border-rose-200 bg-rose-50 p-5 dark:border-rose-900 dark:bg-rose-950/40">
+          <h2 className="text-xl font-semibold text-rose-950 dark:text-rose-100">No approver yet</h2>
           <p className="mt-2 max-w-2xl text-sm text-rose-900 dark:text-rose-200">
             Time Off will not let you file a request until Microsoft Entra has a manager on your
             profile. Ask IT to set that field, then sign in again.
@@ -68,7 +97,7 @@ export default async function HomePage() {
       {feed.waiting.length > 0 ? (
         <section className="space-y-3">
           <div className="flex items-end justify-between gap-3">
-            <h2 className="text-2xl">Waiting on you</h2>
+            <h2 className="text-lg font-semibold">Waiting on you</h2>
             <Button variant="outline" size="sm" nativeButton={false} render={<Link href="/approvals" />}>
               Approval queue
             </Button>
@@ -83,7 +112,7 @@ export default async function HomePage() {
 
       <div className="grid gap-8 lg:grid-cols-2">
         <section className="space-y-3">
-          <h2 className="text-2xl">Your upcoming time off</h2>
+          <h2 className="text-lg font-semibold">Your upcoming time off</h2>
           {feed.upcomingMine.length === 0 ? (
             <p className="text-sm text-muted-foreground">Nothing approved is still ahead of you.</p>
           ) : (
@@ -96,7 +125,7 @@ export default async function HomePage() {
         </section>
         <section className="space-y-3">
           <div className="flex items-end justify-between gap-3">
-            <h2 className="text-2xl">{user.managesTeam ? "Team coming up" : "Recent requests"}</h2>
+            <h2 className="text-lg font-semibold">{user.managesTeam ? "Team coming up" : "Recent requests"}</h2>
             {user.managesTeam ? (
               <Link href="/team" className="text-sm text-primary">
                 Team history

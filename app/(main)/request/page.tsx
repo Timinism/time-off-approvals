@@ -1,3 +1,4 @@
+import { PageHeader } from "@/components/page-header";
 import { RequestForm } from "@/components/request-form";
 import { addDaysISO, todayISO } from "@/lib/dates";
 import { itopsEmail, orgTimezone } from "@/lib/config";
@@ -34,14 +35,10 @@ export default async function RequestPage({
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
-      <div>
-        <p className="text-xs font-semibold tracking-[0.16em] text-primary uppercase">New request</p>
-        <h1 className="mt-2 text-4xl tracking-tight">Ask for the days</h1>
-        <p className="mt-3 text-sm text-muted-foreground">
-          Pick PTO or sick time, the first and last day, and anything your manager should know.
-          One request can cover up to 31 days.
-        </p>
-      </div>
+      <PageHeader title="Ask for the days">
+        Pick PTO or sick time, the first and last day, and anything your manager should know. One
+        request can cover up to 31 days.
+      </PageHeader>
       <RequestForm
         defaultType={defaultType}
         today={today}
