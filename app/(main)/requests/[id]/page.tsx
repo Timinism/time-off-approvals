@@ -56,7 +56,7 @@ export default async function RequestDetailPage({
           </p>
           {request.decisionNote ? (
             <div className="mt-4 border-t border-border pt-4">
-              <p className="text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+              <p className="text-sm font-medium text-muted-foreground">
                 From {request.decidedByName || request.approverName}
               </p>
               <p className="mt-2 text-sm whitespace-pre-wrap">{request.decisionNote}</p>

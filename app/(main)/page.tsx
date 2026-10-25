@@ -17,10 +17,10 @@ export default async function HomePage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="display-title max-w-xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+        <h1 className="text-3xl font-semibold tracking-tight text-balance">
           {feed.hello}, {firstName(user.name)}
         </h1>
-        {user.jobTitle ? <p className="mt-2 text-sm text-muted-foreground">{user.jobTitle}</p> : null}
+        {user.jobTitle ? <p className="mt-1 text-sm text-muted-foreground">{user.jobTitle}</p> : null}
         <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">
           {managerIntro(
             user,
@@ -30,27 +30,10 @@ export default async function HomePage() {
       </div>
 
       {user.managerEmail ? (
-        <>
-        <div className="flex flex-wrap gap-2">
-          <Link
-            href="/request?type=pto"
-            className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-card/70 px-4 py-2 text-sm font-medium backdrop-blur transition hover:border-primary/50"
-          >
-            <TreePalm className="size-4 text-clay" aria-hidden />
-            Paid time off
-          </Link>
-          <Link
-            href="/request?type=sick"
-            className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-card/70 px-4 py-2 text-sm font-medium backdrop-blur transition hover:border-primary/50"
-          >
-            <HeartPulse className="size-4 text-lagoon" aria-hidden />
-            Sick time
-          </Link>
-        </div>
         <div className="grid gap-3 sm:grid-cols-2">
           <Link
             href="/request?type=pto"
-            className="glass group flex items-start gap-4 rounded-2xl border border-border/80 p-4 transition hover:-translate-y-0.5 hover:border-primary/40"
+            className="group flex items-start gap-4 rounded-xl border border-border/80 bg-card p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
           >
             <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-clay/12 text-clay">
               <TreePalm className="size-5" aria-hidden />
@@ -67,7 +50,7 @@ export default async function HomePage() {
           </Link>
           <Link
             href="/request?type=sick"
-            className="glass group flex items-start gap-4 rounded-2xl border border-border/80 p-4 transition hover:-translate-y-0.5 hover:border-primary/40"
+            className="group flex items-start gap-4 rounded-xl border border-border/80 bg-card p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
           >
             <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-lagoon/12 text-lagoon">
               <HeartPulse className="size-5" aria-hidden />
@@ -83,7 +66,6 @@ export default async function HomePage() {
             </span>
           </Link>
         </div>
-        </>
       ) : (
         <section className="rounded-xl border border-rose-200 bg-rose-50 p-5 dark:border-rose-900 dark:bg-rose-950/40">
           <h2 className="text-xl font-semibold text-rose-950 dark:text-rose-100">No approver yet</h2>
@@ -127,11 +109,11 @@ export default async function HomePage() {
           <div className="flex items-end justify-between gap-3">
             <h2 className="text-lg font-semibold">{user.managesTeam ? "Team coming up" : "Recent requests"}</h2>
             {user.managesTeam ? (
-              <Link href="/team" className="text-sm text-primary">
+              <Link href="/team" className="text-sm font-medium text-primary">
                 Team history
               </Link>
             ) : (
-              <Link href="/requests" className="text-sm text-primary">
+              <Link href="/requests" className="text-sm font-medium text-primary">
                 All of yours
               </Link>
             )}

@@ -78,12 +78,12 @@ export function RequestForm({
                 {option === "pto" ? <TreePalm className="size-5" aria-hidden /> : <HeartPulse className="size-5" aria-hidden />}
               </span>
               <span className="min-w-0">
-              <span className="block font-medium">{typeLong(option)}</span>
-              <span className="mt-1 block text-sm text-muted-foreground">
-                {option === "pto"
-                  ? "Vacation, personal days, and planned time away."
-                  : "Illness, injury, or a medical appointment."}
-              </span>
+                <span className="block font-medium">{typeLong(option)}</span>
+                <span className="mt-1 block text-sm text-muted-foreground">
+                  {option === "pto"
+                    ? "Vacation, personal days, and planned time away."
+                    : "Illness, injury, or a medical appointment."}
+                </span>
               </span>
             </label>
           ))}

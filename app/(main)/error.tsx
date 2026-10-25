@@ -16,7 +16,7 @@ export default function MainError({
 
   return (
     <div className="mx-auto max-w-lg rounded-xl border border-border/80 bg-card p-6 shadow-sm">
-      <h1 className="text-3xl">Time Off hit a snag</h1>
+      <h1 className="text-3xl font-semibold tracking-tight">Time Off hit a snag</h1>
       <p className="mt-3 text-sm text-muted-foreground">
         The page did not finish loading. You can try it again. If it keeps failing, the detail below
         is what the server reported.

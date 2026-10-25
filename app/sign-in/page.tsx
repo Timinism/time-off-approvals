@@ -33,35 +33,40 @@ export default async function SignInPage({
 
   return (
     <div className="relative min-h-screen">
-      <div className="absolute top-4 right-4 z-10 flex items-center gap-3 sm:top-6 sm:right-6">
+      <div className="absolute top-4 right-4 z-10 sm:top-6 sm:right-6">
         <ThemeToggle />
       </div>
-      <div className="mx-auto flex min-h-screen max-w-3xl flex-col px-4 py-16 sm:px-6">
-        <div className="flex items-center gap-2.5">
-          <span className="grid size-9 place-items-center rounded-lg bg-primary text-primary-foreground shadow-[0_0_24px_color-mix(in_oklch,var(--primary),transparent_50%)]">
-            <CalendarDays className="size-4" aria-hidden />
-          </span>
-          <span className="text-sm font-semibold tracking-tight">Time Off</span>
-        </div>
-        <h1 className="display-title mt-14 max-w-2xl text-5xl font-semibold tracking-tight text-balance sm:text-6xl">
-          Ask for the days.
-        </h1>
-        <p className="mt-4 max-w-xl text-base text-muted-foreground">
-          Your Entra manager gets the decision. Approval sends you an email and IT Ops an all-day
-          calendar invite.
-        </p>
-        <ul className="mt-6 flex flex-wrap gap-2">
-          {steps.map((step) => (
-            <li
-              key={step}
-              className="rounded-full border border-border/80 bg-card/60 px-3 py-1.5 text-xs text-muted-foreground backdrop-blur"
-            >
-              {step}
-            </li>
-          ))}
-        </ul>
+      <div className="mx-auto grid min-h-screen max-w-6xl items-center gap-6 px-4 py-16 sm:gap-8 sm:py-20 lg:grid-cols-2 lg:gap-12 lg:px-8">
+        <section className="auth-stage relative overflow-hidden rounded-3xl px-5 py-6 text-[#f4f7f6] sm:px-10 sm:py-12">
+          <div className="flex items-center gap-3">
+            <span className="grid size-10 place-items-center rounded-xl bg-white/12 text-white ring-1 ring-white/20">
+              <CalendarDays className="size-5" aria-hidden />
+            </span>
+            <div>
+              <p className="text-lg leading-none font-semibold tracking-tight">Time Off</p>
+              <p className="mt-1 text-xs text-[#d5e8e4]">TTEC Digital</p>
+            </div>
+          </div>
+          <h1 className="mt-6 max-w-md text-3xl font-semibold tracking-tight text-balance text-[#f4f7f6] sm:mt-10 sm:text-4xl">
+            Ask for the days. Your Entra manager gets the decision.
+          </h1>
+          <ol className="mt-5 space-y-3 sm:mt-8 sm:space-y-4">
+            {steps.map((step, index) => (
+              <li key={step} className="flex gap-3 text-sm leading-6 text-[#e7f3ef]">
+                <span className="grid size-6 shrink-0 place-items-center rounded-full bg-white/12 text-xs font-semibold ring-1 ring-white/15">
+                  {index + 1}
+                </span>
+                {step}
+              </li>
+            ))}
+          </ol>
+          <p className="mt-6 max-w-md text-sm leading-6 text-[#d5e8e4] sm:mt-10">
+            Sick notes stay with you and your manager. The invite to itops@ttecdigital.com only
+            carries your name, the type of leave, and the dates.
+          </p>
+        </section>
 
-        <section className="glass mt-10 flex w-full flex-col gap-8 rounded-3xl border border-border/80 p-5 sm:p-7">
+        <section className="mx-auto flex w-full max-w-md flex-col gap-8">
           <div>
             <h2 className="text-2xl font-semibold tracking-tight">Sign in</h2>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
