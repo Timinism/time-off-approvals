@@ -13,7 +13,7 @@ export function RequestCard({
   return (
     <Link
       href={`/requests/${request.id}`}
-      className="group block rounded-xl border border-border/80 bg-card p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md"
+      className="glass group block rounded-2xl border border-border/80 p-4 transition hover:-translate-y-0.5 hover:border-primary/40"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
