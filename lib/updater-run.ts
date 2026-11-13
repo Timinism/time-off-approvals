@@ -46,7 +46,8 @@ export function projectRoot(): string {
 }
 
 export function applyAvailability(root = projectRoot()): { enabled: boolean; reason: string } {
-  if (process.env.TIMEOFF_COMPONENT_UPDATES === "0") {
+  const flag = process.env.TIMEOFF_COMPONENT_UPDATES;
+  if (flag === "0" || (flag !== "1" && process.env.NODE_ENV === "production")) {
     return { enabled: false, reason: "Component installs are turned off on this host." };
   }
   if (process.env.VERCEL || process.env.VERCEL_ENV) {

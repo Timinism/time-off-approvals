@@ -77,7 +77,7 @@ Restart the dev server. The sign-in page then offers **Sign in with Microsoft**.
 
 With calendar invites turned on, Graph creates one all-day event covering the whole date range. The end date sent to Graph is exclusive, which is what makes a single day render as one full day. The event is created on the employee’s calendar with show-as out of office, and IT Ops is a required attendee, so the invite goes to that mailbox. If the employee’s Microsoft session cannot be refreshed, the invite is sent from the approver’s calendar instead and the approver is not marked out of office. With the integration off, approval only emails the employee and records the decision.
 
-Tokens are encrypted with `AUTH_SECRET` and stored in the local SQLite file. Set a real `AUTH_SECRET` before anyone other than you can reach the app. Microsoft sign-in stays off until that secret, the client id, the client secret, and the tenant id are all present.
+Tokens are encrypted with `AUTH_SECRET` and stored in the local SQLite file. Generate a long random value and put it in `AUTH_SECRET`. Microsoft sign-in stays off until that secret, the client id, the client secret, and the tenant id are all present. Outside local development, Time Off will not sign anyone in until `AUTH_SECRET` is set. There is no built-in secret.
 
 ## Data
 
@@ -93,4 +93,4 @@ Requests, people, and the message log live in `data/timeoff.db`. The file is cre
 
 **Components** lists Next.js, React, and the other libraries this app is built with. Time Off reads the latest stable release from the npm registry, then chooses the newest version the rest of the set still supports. Next.js and `eslint-config-next` stay on a release both packages publish. A package that has only published prereleases, such as Auth.js, stays on the newest prerelease.
 
-A manager can choose **Update all** to install those releases into this checkout. A built deployment can show the comparison, and the install runs where `npm` can write `package.json`. Set `TIMEOFF_COMPONENT_UPDATES=0` to keep the check and skip the install.
+A manager can choose **Update all** to install those releases into this checkout while you are developing. A production host only shows the comparison. Set `TIMEOFF_COMPONENT_UPDATES=1` on a checkout where `npm` can write `package.json` if you want the install there, or `TIMEOFF_COMPONENT_UPDATES=0` to keep every host read-only.

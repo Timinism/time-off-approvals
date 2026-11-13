@@ -1,16 +1,21 @@
-const DEV_SECRET = "dev-only-timeoff-secret-change-for-production";
+import { randomBytes } from "node:crypto";
 
 function env(name: string): string {
   const value = process.env[name];
   return typeof value === "string" ? value.trim() : "";
 }
 
-export function appSecret(): string {
-  return env("AUTH_SECRET") || DEV_SECRET;
+function ephemeralDevSecret(): string {
+  const host = globalThis as typeof globalThis & { __timeoffEphemeralSecret?: string };
+  host.__timeoffEphemeralSecret ??= randomBytes(32).toString("base64url");
+  return host.__timeoffEphemeralSecret;
 }
 
-export function usingDevSecret(): boolean {
-  return !env("AUTH_SECRET");
+export function appSecret(): string {
+  const secret = env("AUTH_SECRET");
+  if (secret.length >= 16) return secret;
+  if (process.env.NODE_ENV === "development") return ephemeralDevSecret();
+  throw new Error("Set AUTH_SECRET to a long random value before Time Off can sign anyone in.");
 }
 
 export function orgTimezone(): string {
