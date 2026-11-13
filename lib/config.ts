@@ -26,7 +26,7 @@ export function itopsEmail(): string {
 }
 
 export function appBaseUrl(): string {
-  return (env("AUTH_URL") || "http://localhost:3847").replace(/\/$/, "");
+  return (env("AUTH_URL") || "http://localhost:4748").replace(/\/$/, "");
 }
 
 export function appUrl(path: string): string {

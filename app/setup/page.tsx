@@ -35,7 +35,7 @@ export default function SetupPage() {
         <li>
           <strong>Add a web redirect URI.</strong>
           <code className="mt-2 block rounded-lg bg-sand px-3 py-2 text-xs">
-            http://localhost:3847/api/auth/callback/microsoft-entra-id
+            http://localhost:4748/api/auth/callback/microsoft-entra-id
           </code>
           Add the same path for your deployed site, and for 127.0.0.1 if you open the app that way.
           The URI has to match exactly.
@@ -70,7 +70,7 @@ export default function SetupPage() {
         <li>
           <strong>Put this in `.env.local` and restart.</strong>
           <pre className="mt-2 overflow-x-auto rounded-lg bg-sand p-3 text-xs">{`AUTH_SECRET=generate-a-long-random-string
-AUTH_URL=http://localhost:3847
+AUTH_URL=http://localhost:4748
 AUTH_MICROSOFT_ENTRA_ID_ID=application-client-id
 AUTH_MICROSOFT_ENTRA_ID_SECRET=client-secret-value
 AUTH_MICROSOFT_ENTRA_ID_TENANT_ID=directory-tenant-id

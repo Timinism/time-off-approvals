@@ -24,7 +24,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3847](http://localhost:3847). On the sign-in page, start as Alex Morgan to see the approval queue, Jordan Lee to file a request, or Sam Patel to approve the team under a supervisor.
+Open [http://localhost:4748](http://localhost:4748). On the sign-in page, start as Alex Morgan to see the approval queue, Jordan Lee to file a request, or Sam Patel to approve the team under a supervisor.
 
 ```bash
 npm test
@@ -39,7 +39,7 @@ Create an app registration in the Entra admin center.
 - Redirect URI, platform Web:
 
 ```text
-http://localhost:3847/api/auth/callback/microsoft-entra-id
+http://localhost:4748/api/auth/callback/microsoft-entra-id
 ```
 
 Add the same path for the deployed URL. If you browse the app at `127.0.0.1`, register that host too. The redirect URI has to match exactly, including the port.
@@ -62,7 +62,7 @@ Copy `.env.example` to `.env.local`:
 
 ```bash
 AUTH_SECRET=replace-with-a-long-random-string
-AUTH_URL=http://localhost:3847
+AUTH_URL=http://localhost:4748
 AUTH_MICROSOFT_ENTRA_ID_ID=application-client-id
 AUTH_MICROSOFT_ENTRA_ID_SECRET=client-secret-value
 AUTH_MICROSOFT_ENTRA_ID_TENANT_ID=directory-tenant-id
@@ -85,7 +85,7 @@ Requests, people, and the message log live in `data/timeoff.db`. The file is cre
 
 ## Scripts
 
-- `npm run dev` starts the app on port 3847
+- `npm run dev` starts the app on port 4748
 - `npm test` runs the request, permission, mail, calendar, and component-updater checks
 - `npm run lint` runs ESLint
 

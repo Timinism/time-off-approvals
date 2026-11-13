@@ -48,7 +48,7 @@ test("request email escapes notes and the calendar invite leaves them out", () =
     startDate: "2026-10-26",
     endDate: "2026-10-26",
     notes: "Fever <script>alert(1)</script>",
-    requestUrl: "http://localhost:3847/requests/abc",
+    requestUrl: "http://localhost:4748/requests/abc",
   });
   assert.match(mail.subject, /Jordan Lee/);
   assert.match(mail.html, /Fever &lt;script&gt;/);
