@@ -14,7 +14,11 @@ function ephemeralDevSecret(): string {
 export function appSecret(): string {
   const secret = env("AUTH_SECRET");
   if (secret.length >= 16) return secret;
-  if (process.env.NODE_ENV === "development") return ephemeralDevSecret();
+  // The production build imports the auth route while collecting pages. That process
+  // does not serve requests. A running production server still requires AUTH_SECRET.
+  if (process.env.NODE_ENV === "development" || process.env.NEXT_PHASE === "phase-production-build") {
+    return ephemeralDevSecret();
+  }
   throw new Error("Set AUTH_SECRET to a long random value before Time Off can sign anyone in.");
 }
 

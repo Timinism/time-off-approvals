@@ -1,0 +1,23 @@
+services:
+  time-off:
+    build: .
+    ports:
+      - "4748:4748"
+    env_file:
+      - path: .env
+        required: false
+      - path: .env.local
+        required: false
+    environment:
+      PORT: "4748"
+      HOSTNAME: 0.0.0.0
+      NODE_ENV: production
+      TIMEOFF_COMPONENT_UPDATES: "0"
+      TIMEOFF_DB_PATH: /app/data/timeoff.db
+      AUTH_URL: ${AUTH_URL:-http://localhost:4748}
+    volumes:
+      - timeoff-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  timeoff-data:

@@ -79,6 +79,18 @@ With calendar invites turned on, Graph creates one all-day event covering the wh
 
 Tokens are encrypted with `AUTH_SECRET` and stored in the local SQLite file. Generate a long random value and put it in `AUTH_SECRET`. Microsoft sign-in stays off until that secret, the client id, the client secret, and the tenant id are all present. Outside local development, Time Off will not sign anyone in until `AUTH_SECRET` is set. There is no built-in secret.
 
+## Docker
+
+Copy `.env.example` to `.env` and set `AUTH_SECRET` to a long random value. Compose reads `.env` and, when it is present, `.env.local`. The container listens on port 4748 and keeps the SQLite file in a volume named `timeoff-data`. Component installs stay off inside the image.
+
+```bash
+docker compose up --build
+```
+
+Open [http://localhost:4748](http://localhost:4748). `AUTH_URL` should be the origin people use in the browser, including the port. Register that same origin on the Entra redirect URI.
+
+The sample directory stays hidden in this container unless you set `DEMO_MODE=true`. Leave that unset when real colleagues use it.
+
 ## Data
 
 Requests, people, and the message log live in `data/timeoff.db`. The file is created on first use and is not committed. Keep that file on a persistent disk if you run this somewhere other than a laptop. There is no separate hosted database.
