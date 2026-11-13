@@ -33,7 +33,7 @@ export function appUrl(path: string): string {
   return `${appBaseUrl()}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
-export const graphScopes = [
+const baseGraphScopes = [
   "openid",
   "profile",
   "email",
@@ -41,8 +41,12 @@ export const graphScopes = [
   "User.Read",
   "User.Read.All",
   "Mail.Send",
-  "Calendars.ReadWrite",
-].join(" ");
+];
+
+export function graphScopes(calendar = false): string {
+  const scopes = calendar ? [...baseGraphScopes, "Calendars.ReadWrite"] : baseGraphScopes;
+  return scopes.join(" ");
+}
 
 export type EntraSettings = {
   clientId: string;

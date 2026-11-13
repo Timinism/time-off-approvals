@@ -95,7 +95,7 @@ test("a manager can review a supervisor's team without becoming their approver",
   assert.equal(canViewRequest("demo-casey", { requesterId: "demo-casey", approverId: "demo-sam" }, []), true);
 });
 
-test("the sample directory approves, invites IT Ops, and keeps the sick note off the calendar", async () => {
+test("the sample directory tracks the decision, and the calendar invite waits until it is turned on", async () => {
   const { seedDemo } = await import("../lib/demo-seed");
   const { descendantIds, getPerson, getRequest, listDirectReports, listNotifications } = await import(
     "../lib/repo"
@@ -144,13 +144,31 @@ test("the sample directory approves, invites IT Ops, and keeps the sick note off
   await decideTimeOff(alex, sick.id, "approved", "Rest up");
   const approved = getRequest(sick.id);
   assert.equal(approved?.status, "approved");
-  const calendar = listNotifications(sick.id).find((item) => item.kind === "calendar_invite");
   const decision = listNotifications(sick.id).find((item) => item.kind === "decision_email");
-  assert.equal(calendar?.status, "simulated");
+  assert.equal(
+    listNotifications(sick.id).some((item) => item.kind === "calendar_invite"),
+    false,
+  );
   assert.equal(decision?.status, "simulated");
+  assert.equal(/IT Ops/i.test(decision?.bodyHtml ?? ""), false);
+  assert.match(decision?.bodyHtml ?? "", /Rest up/);
+
+  const { setCalendarIntegration } = await import("../lib/settings");
+  setCalendarIntegration(true);
+  const inviteStart = addDaysISO(todayISO(), 80);
+  const inviteEnd = addDaysISO(inviteStart, 1);
+  const invitedId = await submitTimeOff(jordan, {
+    type: "pto",
+    startDate: inviteStart,
+    endDate: inviteEnd,
+    notes: "Door County fever",
+  });
+  await decideTimeOff(alex, invitedId, "approved", "Enjoy");
+  const calendar = listNotifications(invitedId).find((item) => item.kind === "calendar_invite");
+  assert.equal(calendar?.status, "simulated");
   assert.equal(/fever/i.test(calendar?.bodyHtml ?? ""), false);
   assert.match(calendar?.bodyHtml ?? "", /itops@ttecdigital.com/);
-  assert.match(decision?.bodyHtml ?? "", /Rest up/);
+  assert.match(listNotifications(invitedId).find((item) => item.kind === "decision_email")?.bodyHtml ?? "", /IT Ops/);
 
   await assert.rejects(() => decideTimeOff(jordan, casey.id, "approved", ""));
   await assert.rejects(() => decideTimeOff(sam, casey.id, "denied", "no"));

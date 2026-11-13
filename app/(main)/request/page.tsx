@@ -2,6 +2,7 @@ import { PageHeader } from "@/components/page-header";
 import { RequestForm } from "@/components/request-form";
 import { addDaysISO, todayISO } from "@/lib/dates";
 import { itopsEmail, orgTimezone } from "@/lib/config";
+import { calendarIntegrationEnabled } from "@/lib/settings";
 import { listVisibleRequests } from "@/lib/repo";
 import { getAppUser } from "@/lib/session";
 import { SICK_LOOKBACK_DAYS } from "@/lib/validate";
@@ -47,6 +48,7 @@ export default async function RequestPage({
         managerName={user.managerName}
         managerEmail={user.managerEmail}
         itopsEmail={itopsEmail()}
+        calendarEnabled={calendarIntegrationEnabled()}
         blocked={blocked}
       />
     </div>

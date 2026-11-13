@@ -23,7 +23,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           issuer: settings.issuer ?? undefined,
           authorization: {
             params: {
-              scope: graphScopes,
+              scope: graphScopes(false),
               prompt: "select_account",
             },
           },

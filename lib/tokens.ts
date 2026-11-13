@@ -1,4 +1,5 @@
 import { appSecret, entraSettings, graphScopes, tenantIdFromIssuer } from "./config";
+import { calendarIntegrationEnabled } from "./settings";
 import { decryptSecret, encryptSecret } from "./crypto";
 import { explainGraphFailure } from "./graph";
 import { getPerson, saveTokens } from "./repo";
@@ -26,7 +27,7 @@ export async function refreshAccessToken(refreshToken: string): Promise<{
     client_secret: settings.clientSecret,
     grant_type: "refresh_token",
     refresh_token: refreshToken,
-    scope: graphScopes,
+    scope: graphScopes(calendarIntegrationEnabled()),
   });
   const response = await fetch(`https://login.microsoftonline.com/${tenant}/oauth2/v2.0/token`, {
     method: "POST",

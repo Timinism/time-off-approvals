@@ -23,8 +23,8 @@ export default function SetupPage() {
       <h1 className="mt-8 text-3xl font-semibold tracking-tight">Connect Microsoft Entra</h1>
       <p className="mt-3 text-sm text-muted-foreground">
         Time Off signs people in with their Microsoft 365 account, reads the manager already stored
-        in Entra, sends mail from the signed-in mailbox, and creates the IT Ops calendar invite from
-        the employee&apos;s calendar.
+        in Entra, and sends mail from the signed-in mailbox. Calendar invites are off until a
+        manager turns them on.
       </p>
 
       <ol className="mt-8 space-y-6 text-sm leading-6">
@@ -50,7 +50,10 @@ export default function SetupPage() {
             <li>User.Read</li>
             <li>User.Read.All, so the app can read each person&apos;s manager and direct reports</li>
             <li>Mail.Send, so the request and the decision go out as the signed-in person</li>
-            <li>Calendars.ReadWrite, so approval can put an all-day event on the employee&apos;s calendar</li>
+            <li>
+              Calendars.ReadWrite, only if a manager will turn on IT Ops calendar invites. Sign in
+              again after turning that on so Microsoft grants the calendar permission.
+            </li>
             <li>openid, profile, email, and offline_access</li>
           </ul>
           {consent ? (

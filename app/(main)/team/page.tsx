@@ -3,6 +3,7 @@ import { PageHeader } from "@/components/page-header";
 import { RequestFilters } from "@/components/filters";
 import { RequestCard } from "@/components/request-card";
 import { itopsEmail } from "@/lib/config";
+import { calendarIntegrationEnabled } from "@/lib/settings";
 import { formatShortRange } from "@/lib/dates";
 import { listVisibleRequests } from "@/lib/repo";
 import { getAppUser } from "@/lib/session";
@@ -32,8 +33,10 @@ export default async function TeamPage({
     <div className="space-y-8">
       <PageHeader title="Team history">
         Your direct reports, plus the people under supervisors who report to you. You decide the
-        requests that name you as approver. The rest stay with their own manager. Approved days also
-        go to {itopsEmail()} as an all-day invite.
+        requests that name you as approver. The rest stay with their own manager.
+        {calendarIntegrationEnabled()
+          ? ` Approved days also go to ${itopsEmail()} as an all-day invite.`
+          : " Approved days stay in this history."}
       </PageHeader>
 
       <section className="rounded-xl border border-border/80 bg-card p-5 shadow-sm">

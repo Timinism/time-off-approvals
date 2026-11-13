@@ -1,4 +1,5 @@
 import { appUrl } from "./config";
+import { calendarIntegrationEnabled } from "./settings";
 import { createEvent, explainGraphFailure, sendMail } from "./graph";
 import { calendarInvite, cancelEmail, decisionEmail, requestEmail } from "./messages";
 import { getPerson, insertNotification } from "./repo";
@@ -98,7 +99,11 @@ export async function deliverRequestEmail(request: TimeOffRequest) {
 }
 
 export async function deliverDecisionEmail(request: TimeOffRequest) {
-  const mail = decisionEmail({ ...mailFields(request), approved: request.status === "approved" });
+  const mail = decisionEmail({
+    ...mailFields(request),
+    approved: request.status === "approved",
+    calendar: request.status === "approved" && calendarIntegrationEnabled(),
+  });
   await deliverEmail({
     request,
     kind: "decision_email",

@@ -5,6 +5,7 @@ import { NotificationList } from "@/components/notification-list";
 import { StatusBadge, TypeBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
 import { itopsEmail, orgTimezone } from "@/lib/config";
+import { calendarIntegrationEnabled } from "@/lib/settings";
 import { formatTimestamp, spanSummary } from "@/lib/dates";
 import { canCancelRequest, canDecideRequest, canViewRequest } from "@/lib/permissions";
 import { descendantIds, getRequest, listNotifications } from "@/lib/repo";
@@ -113,6 +114,7 @@ export default async function RequestDetailPage({
                 requestId={request.id}
                 requesterName={request.requesterName}
                 itopsEmail={itopsEmail()}
+                calendarEnabled={calendarIntegrationEnabled()}
               />
             </div>
           </section>

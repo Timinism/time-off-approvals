@@ -11,10 +11,12 @@ export function DecisionPanel({
   requestId,
   requesterName,
   itopsEmail,
+  calendarEnabled,
 }: {
   requestId: string;
   requesterName: string;
   itopsEmail: string;
+  calendarEnabled: boolean;
 }) {
   const [state, action, pending] = useActionState<ActionState, FormData>(decideRequestAction, null);
   return (
@@ -36,7 +38,7 @@ export function DecisionPanel({
         </p>
       ) : null}
       <Button type="submit" name="decision" value="approved" disabled={pending} className="w-full">
-        {pending ? "Sending…" : "Approve and notify IT Ops"}
+        {pending ? "Sending…" : calendarEnabled ? "Approve and notify IT Ops" : "Approve request"}
       </Button>
       <Button
         type="submit"
@@ -49,8 +51,9 @@ export function DecisionPanel({
         Deny request
       </Button>
       <p className="text-xs text-muted-foreground">
-        Approval emails {requesterName} and sends {itopsEmail} an all-day calendar invite covering
-        these dates. The invite leaves out the note.
+        {calendarEnabled
+          ? `Approval emails ${requesterName} and sends ${itopsEmail} an all-day calendar invite covering these dates. The invite leaves out the note.`
+          : `Approval emails ${requesterName}. The request stays in this history. No calendar invite is sent.`}
       </p>
     </form>
   );

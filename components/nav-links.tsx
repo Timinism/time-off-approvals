@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CalendarPlus, House, Inbox, Users, CheckCheck } from "lucide-react";
+import { Boxes, CalendarPlus, House, Inbox, Users, CheckCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function NavLinks({
@@ -30,6 +30,13 @@ export function NavLinks({
       icon: Inbox,
       count: 0,
       active: pathname.startsWith("/requests"),
+    },
+    {
+      href: "/components",
+      label: "Components",
+      icon: Boxes,
+      count: 0,
+      active: pathname.startsWith("/components"),
     },
     ...(managesTeam
       ? [

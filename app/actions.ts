@@ -3,7 +3,8 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { entraConfigured, signIn, signOut } from "@/lib/auth";
-import { appSecret, demoAllowed } from "@/lib/config";
+import { appSecret, demoAllowed, graphScopes } from "@/lib/config";
+import { calendarIntegrationEnabled, setCalendarIntegration } from "@/lib/settings";
 import { DEMO_COOKIE, sealValue } from "@/lib/crypto";
 import { demoPerson } from "@/lib/demo-people";
 import { seedDemo } from "@/lib/demo-seed";
@@ -25,9 +26,20 @@ export async function microsoftSignIn(formData: FormData) {
       `/sign-in?error=${encodeURIComponent("Microsoft Entra ID is not configured yet. The setup page lists what to add.")}`,
     );
   }
-  await signIn("microsoft-entra-id", {
-    redirectTo: safeCallback(String(formData.get("callbackUrl") || "/")),
-  });
+  const calendar = calendarIntegrationEnabled();
+  await signIn(
+    "microsoft-entra-id",
+    { redirectTo: safeCallback(String(formData.get("callbackUrl") || "/")) },
+    { scope: graphScopes(calendar) },
+  );
+}
+
+export async function setCalendarAction(formData: FormData) {
+  const user = await requireUser();
+  const returnTo = safeCallback(String(formData.get("returnTo") || "/"));
+  if (!user.managesTeam) redirect(returnTo);
+  setCalendarIntegration(formData.get("enabled") === "on");
+  redirect(returnTo);
 }
 
 export async function enterDemo(formData: FormData) {

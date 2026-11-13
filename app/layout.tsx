@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     template: "%s · Time Off",
   },
   description:
-    "Request PTO or sick time. Your Microsoft Entra manager approves it, and IT Ops gets a calendar invite.",
+    "Request PTO or sick time. Your Microsoft Entra manager approves it, and the history stays here.",
   robots: { index: false, follow: false },
 };
 

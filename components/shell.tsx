@@ -19,7 +19,15 @@ function Wordmark() {
   );
 }
 
-export function Shell({ user, children }: { user: AppUser; children: React.ReactNode }) {
+export function Shell({
+  user,
+  calendarEnabled,
+  children,
+}: {
+  user: AppUser;
+  calendarEnabled: boolean;
+  children: React.ReactNode;
+}) {
   return (
     <div className="min-h-screen lg:grid lg:grid-cols-[232px_minmax(0,1fr)]">
       <a
@@ -84,8 +92,9 @@ export function Shell({ user, children }: { user: AppUser; children: React.React
                 <span className="mr-2 inline-flex rounded-full border border-primary/30 bg-primary/10 px-2 py-0.5 text-xs font-semibold text-primary">
                   Demo
                 </span>
-                Mail and the IT Ops invite are saved on the request. Nothing is sent until Entra ID is
-                connected.
+                {calendarEnabled
+                  ? "Mail and the IT Ops invite are saved on the request. Nothing is sent until Entra ID is connected."
+                  : "Mail is saved on the request. Calendar invites are off. Nothing is sent until Entra ID is connected."}
               </p>
               <form action={enterDemo} className="flex items-center gap-2">
                 <label htmlFor="persona" className="sr-only">
@@ -113,7 +122,10 @@ export function Shell({ user, children }: { user: AppUser; children: React.React
         </main>
         <footer className="mx-auto max-w-5xl px-4 pb-8 text-xs leading-5 text-muted-foreground sm:px-6">
           Approvers come from the manager field in Microsoft Entra. Sick notes stay with you and your
-          manager. The IT Ops calendar invite only includes the name, the type of leave, and the dates.
+          manager.
+          {calendarEnabled
+            ? " The IT Ops calendar invite only includes the name, the type of leave, and the dates."
+            : " Calendar invites stay off until a manager turns them on."}
         </footer>
       </div>
     </div>

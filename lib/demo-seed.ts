@@ -2,6 +2,7 @@ import { addDaysISO, atLocalNoon, todayISO } from "./dates";
 import { DEMO_PEOPLE, demoPerson } from "./demo-people";
 import { appUrl, orgTimezone } from "./config";
 import { calendarInvite, decisionEmail, requestEmail } from "./messages";
+import { calendarIntegrationEnabled } from "./settings";
 import {
   countDemoPeople,
   insertHistoricalRequest,
@@ -72,11 +73,12 @@ function rememberEmail(request: TimeOffRequest, when: string) {
   });
 }
 
-function rememberDecision(request: TimeOffRequest, when: string) {
+function rememberDecision(request: TimeOffRequest, when: string, calendar: boolean) {
   const mail = decisionEmail({
     ...request,
     requestUrl: appUrl(`/requests/${request.id}`),
     approved: request.status === "approved",
+    calendar: request.status === "approved" && calendar,
   });
   insertNotification({
     id: `${request.id}-decision-email`,
@@ -220,13 +222,14 @@ export function seedDemo() {
     }),
   ];
 
+  const calendar = calendarIntegrationEnabled();
   for (const request of records) {
     insertHistoricalRequest(request);
     rememberEmail(request, request.createdAt);
     if (request.decidedAt) {
-      rememberDecision(request, request.decidedAt);
+      rememberDecision(request, request.decidedAt, calendar);
     }
-    if (request.status === "approved" && request.decidedAt) {
+    if (calendar && request.status === "approved" && request.decidedAt) {
       rememberCalendar(request, request.decidedAt);
     }
   }

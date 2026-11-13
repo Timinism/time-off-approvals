@@ -28,7 +28,7 @@ export default async function SignInPage({
   const steps = [
     "Choose PTO or sick time, the dates, and a note.",
     "The manager on your Entra profile gets the email and the request.",
-    "Approval emails you back and sends IT Ops an all-day calendar invite.",
+    "Approval emails you back. A manager can turn on an IT Ops calendar invite.",
   ];
 
   return (
@@ -47,8 +47,8 @@ export default async function SignInPage({
           Ask for the days.
         </h1>
         <p className="mt-4 max-w-xl text-base text-muted-foreground">
-          Your Entra manager gets the decision. Approval sends you an email and IT Ops an all-day
-          calendar invite.
+          Your Entra manager gets the decision. Approval sends you an email. Calendar invites stay
+          off until a manager turns them on.
         </p>
         <ul className="mt-6 flex flex-wrap gap-2">
           {steps.map((step) => (

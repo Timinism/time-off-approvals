@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { approveNow } from "@/app/actions";
+import { CalendarSwitch } from "@/components/calendar-switch";
 import { PageHeader } from "@/components/page-header";
 import { EmptyState } from "@/components/empty-state";
 import { RequestCard } from "@/components/request-card";
 import { Button } from "@/components/ui/button";
 import { itopsEmail } from "@/lib/config";
+import { calendarIntegrationEnabled } from "@/lib/settings";
 import { formatShortRange } from "@/lib/dates";
 import { listPendingForApprover, listRecentDecisions } from "@/lib/repo";
 import { getAppUser } from "@/lib/session";
@@ -24,13 +26,16 @@ export default async function ApprovalsPage({
   const query = await searchParams;
   const waiting = listPendingForApprover(user.id);
   const recent = listRecentDecisions(user.id);
+  const calendar = calendarIntegrationEnabled();
 
   return (
     <div className="space-y-8">
       <PageHeader title="Approvals">
         These are waiting on you because you are the manager in Microsoft Entra. Approving emails
-        the person back and sends {itopsEmail()} an all-day calendar invite.
+        the person back.
+        {calendar ? ` It also sends ${itopsEmail()} an all-day calendar invite.` : " Calendar invites are off."}
       </PageHeader>
+      <CalendarSwitch enabled={calendar} returnTo="/approvals" />
       {query.error ? (
         <p role="alert" className="rounded-xl bg-rose-50 px-4 py-3 text-sm text-rose-950 dark:bg-rose-950/40 dark:text-rose-100">
           {query.error}

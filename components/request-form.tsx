@@ -22,6 +22,7 @@ export function RequestForm({
   managerName,
   managerEmail,
   itopsEmail,
+  calendarEnabled,
   blocked,
 }: {
   defaultType: LeaveType;
@@ -31,6 +32,7 @@ export function RequestForm({
   managerName: string | null;
   managerEmail: string | null;
   itopsEmail: string;
+  calendarEnabled: boolean;
   blocked: BlockedRange[];
 }) {
   const [state, action, pending] = useActionState<ActionState, FormData>(submitRequestAction, null);
@@ -147,13 +149,17 @@ export function RequestForm({
           maxLength={2000}
           placeholder={
             type === "sick"
-              ? "What should your manager know? This stays off the IT Ops invite."
+              ? calendarEnabled
+                ? "What should your manager know? This stays off the IT Ops invite."
+                : "What should your manager know?"
               : "Optional context, like travel or coverage."
           }
           className="min-h-28 bg-card"
         />
         <p className="text-xs text-muted-foreground">
-          Your manager sees this note. The calendar invite to {itopsEmail} does not.
+          {calendarEnabled
+            ? `Your manager sees this note. The calendar invite to ${itopsEmail} does not.`
+            : "Your manager sees this note. It stays with the request in this app."}
         </p>
       </div>
 

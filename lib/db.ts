@@ -73,6 +73,11 @@ function migrate(database: DatabaseSync) {
       created_at TEXT NOT NULL
     );
 
+    CREATE TABLE IF NOT EXISTS app_settings (
+      key TEXT PRIMARY KEY,
+      value TEXT NOT NULL
+    );
+
     CREATE INDEX IF NOT EXISTS idx_requests_requester ON requests(requester_id, created_at);
     CREATE INDEX IF NOT EXISTS idx_requests_approver ON requests(approver_id, status, created_at);
     CREATE INDEX IF NOT EXISTS idx_notifications_request ON notifications(request_id, created_at);

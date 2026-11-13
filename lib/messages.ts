@@ -85,14 +85,18 @@ export function requestEmail(input: MailInput): { subject: string; html: string 
   return { subject, html };
 }
 
-export function decisionEmail(input: MailInput & { approved: boolean }): { subject: string; html: string } {
+export function decisionEmail(
+  input: MailInput & { approved: boolean; calendar?: boolean },
+): { subject: string; html: string } {
   const label = typeLabel(input.type);
   const when = spanSummary(input.startDate, input.endDate).split(" · ")[0];
   const subject = input.approved
     ? `Time off approved: ${label}, ${when}`
     : `Time off denied: ${label}, ${when}`;
   const lead = input.approved
-    ? `${escapeHtml(input.approverName)} approved your ${escapeHtml(typeLong(input.type).toLowerCase())}. IT Ops will get an all-day calendar invite for these dates.`
+    ? input.calendar
+      ? `${escapeHtml(input.approverName)} approved your ${escapeHtml(typeLong(input.type).toLowerCase())}. IT Ops will get an all-day calendar invite for these dates.`
+      : `${escapeHtml(input.approverName)} approved your ${escapeHtml(typeLong(input.type).toLowerCase())}.`
     : `${escapeHtml(input.approverName)} denied your ${escapeHtml(typeLong(input.type).toLowerCase())}.`;
   const note = input.decisionNote
     ? `<p style="margin:0 0 8px;"><strong>Note from ${escapeHtml(input.approverName)}</strong></p><p style="margin:0;">${textToHtml(input.decisionNote)}</p>`

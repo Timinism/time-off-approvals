@@ -17,6 +17,7 @@ import {
   getRequest,
   insertRequest,
 } from "./repo";
+import { calendarIntegrationEnabled } from "./settings";
 import { isEmail, statusLabel, typeLabel } from "./text";
 import type { AppUser, NotificationKind, TimeOffRequest } from "./types";
 import { validateDraft } from "./validate";
@@ -94,7 +95,7 @@ export async function decideTimeOff(
   const updated = getRequest(request.id);
   if (!updated) throw new Error("The decision was not saved.");
   await deliverDecisionEmail(updated);
-  if (decision === "approved") await deliverCalendarInvite(updated);
+  if (decision === "approved" && calendarIntegrationEnabled()) await deliverCalendarInvite(updated);
 }
 
 export async function cancelTimeOff(user: AppUser, requestId: string): Promise<void> {
@@ -126,5 +127,8 @@ export async function resendTimeOff(user: AppUser, notificationId: string): Prom
   assertVisible(user, request);
   if (notification.status !== "failed") throw new Error("This message already went out.");
   const kind = notification.kind as NotificationKind;
+  if (kind === "calendar_invite" && !calendarIntegrationEnabled()) {
+    throw new Error("Calendar invites are turned off. Turn them on before sending this one again.");
+  }
   await resendKind(request, kind);
 }

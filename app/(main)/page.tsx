@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { ArrowUpRight, HeartPulse, TreePalm } from "lucide-react";
+import { CalendarSwitch } from "@/components/calendar-switch";
 import { RequestCard } from "@/components/request-card";
 import { Button } from "@/components/ui/button";
 import { getAppUser } from "@/lib/session";
+import { calendarIntegrationEnabled } from "@/lib/settings";
 import { firstName } from "@/lib/text";
 import { homeFeed, managerIntro } from "@/lib/view";
 
@@ -28,6 +30,10 @@ export default async function HomePage() {
           )}
         </p>
       </div>
+
+      {user.managesTeam ? (
+        <CalendarSwitch enabled={calendarIntegrationEnabled()} returnTo="/" />
+      ) : null}
 
       {user.managerEmail ? (
         <>
