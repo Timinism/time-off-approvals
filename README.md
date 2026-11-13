@@ -79,17 +79,21 @@ With calendar invites turned on, Graph creates one all-day event covering the wh
 
 Tokens are encrypted with `AUTH_SECRET` and stored in the local SQLite file. Generate a long random value and put it in `AUTH_SECRET`. Microsoft sign-in stays off until that secret, the client id, the client secret, and the tenant id are all present. Outside local development, Time Off will not sign anyone in until `AUTH_SECRET` is set. There is no built-in secret.
 
-## Docker
+## Docker Compose
 
-Copy `.env.example` to `.env` and set `AUTH_SECRET` to a long random value. Compose reads `.env` and, when it is present, `.env.local`. The container listens on port 4748 and keeps the SQLite file in a volume named `timeoff-data`. Component installs stay off inside the image.
+`docker-compose.yml` builds the app, publishes port 4748, and stores requests in the `timeoff-data` volume. It reads `.env` for the signing secret, the Entra app registration, the IT Ops mailbox, and the timezone. Component installs stay off in the container.
+
+```bash
+cp .env.example .env
+```
+
+Set `AUTH_SECRET` in that file to a long random value. Compose stops at startup if it is missing. Fill in the Entra values when Microsoft sign-in should be on. `AUTH_URL` defaults to `http://localhost:4748`. Register that origin, including the port, as the Entra redirect URI.
 
 ```bash
 docker compose up --build
 ```
 
-Open [http://localhost:4748](http://localhost:4748). `AUTH_URL` should be the origin people use in the browser, including the port. Register that same origin on the Entra redirect URI.
-
-The sample directory stays hidden in this container unless you set `DEMO_MODE=true`. Leave that unset when real colleagues use it.
+Open [http://localhost:4748](http://localhost:4748). The sample directory stays hidden unless `DEMO_MODE=true` is set in `.env`. Leave that unset when real colleagues use the container.
 
 ## Data
 

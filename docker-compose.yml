@@ -1,22 +1,46 @@
+name: time-off
+
 services:
   time-off:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: time-off:local
     ports:
       - "4748:4748"
     env_file:
       - path: .env
-        required: false
-      - path: .env.local
-        required: false
+        required: true
     environment:
+      NODE_ENV: production
       PORT: "4748"
       HOSTNAME: 0.0.0.0
-      NODE_ENV: production
-      TIMEOFF_COMPONENT_UPDATES: "0"
       TIMEOFF_DB_PATH: /app/data/timeoff.db
+      TIMEOFF_COMPONENT_UPDATES: "0"
       AUTH_URL: ${AUTH_URL:-http://localhost:4748}
+      AUTH_SECRET: ${AUTH_SECRET:?Set AUTH_SECRET in .env to a long random value}
+      AUTH_MICROSOFT_ENTRA_ID_ID: ${AUTH_MICROSOFT_ENTRA_ID_ID:-}
+      AUTH_MICROSOFT_ENTRA_ID_SECRET: ${AUTH_MICROSOFT_ENTRA_ID_SECRET:-}
+      AUTH_MICROSOFT_ENTRA_ID_TENANT_ID: ${AUTH_MICROSOFT_ENTRA_ID_TENANT_ID:-}
+      AUTH_MICROSOFT_ENTRA_ID_ISSUER: ${AUTH_MICROSOFT_ENTRA_ID_ISSUER:-}
+      ITOPS_EMAIL: ${ITOPS_EMAIL:-itops@ttecdigital.com}
+      ORG_TIMEZONE: ${ORG_TIMEZONE:-America/Chicago}
+      ORG_GRAPH_TIMEZONE: ${ORG_GRAPH_TIMEZONE:-Central Standard Time}
+      DEMO_MODE: ${DEMO_MODE:-}
     volumes:
       - timeoff-data:/app/data
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:4748/sign-in').then((response)=>process.exit(response.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 25s
     restart: unless-stopped
 
 volumes:
